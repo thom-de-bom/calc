@@ -1,0 +1,84 @@
+﻿<Window x:Class="CalculatorApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:CalculatorApp"
+    xmlns:converters="clr-namespace:CalculatorApp.Converters"
+    mc:Ignorable="d"
+    Title="MainWindow" Height="450" Width="800"
+    KeyDown="Window_KeyDown" 
+    Icon="calc.ico"    >
+
+    <Window.Resources>
+        <converters:CountToVisibilityConverter x:Key="countToVisibilityConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock x:Name="displayTextBox" TextAlignment="Center" FontSize="24" Foreground="Black" Background="White"  />
+        </StackPanel>
+
+        <DockPanel Grid.Row="1" Margin="10">
+            <Button x:Name="deleteHistoryButton" DockPanel.Dock="Bottom" Content="Delete History" Click="DeleteHistoryButton_Click" Focusable="False" Visibility="{Binding ElementName=historyListView, Path=Items.Count, Converter={StaticResource countToVisibilityConverter}}" />
+
+            <ListView x:Name="historyListView" PreviewMouseDoubleClick="HistoryListView_PreviewMouseDoubleClick" MouseLeftButtonUp="HistoryListView_MouseLeftButtonUp" Focusable="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+
+
+        <Grid Grid.Row="2" Margin="5,42,5,0" VerticalAlignment="Top" Height="225">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Content="7" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button Grid.Row="0" Grid.Column="1" Content="8" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button Grid.Row="0" Grid.Column="2" Content="9" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button x:Name="divideButton" Grid.Row="0" Grid.Column="3" Content="/" FontSize="18" Click="OperatorButton_Click" Focusable="False" />
+
+            <Button Grid.Row="1" Grid.Column="0" Content="4" FontSize="18" Click="NumberButton_Click" Focusable="False"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="5" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button Grid.Row="1" Grid.Column="2" Content="6" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button x:Name="multiplyButton" Grid.Row="1" Grid.Column="3" Content="*" FontSize="18" Click="OperatorButton_Click" Focusable="False" />
+
+            <Button Grid.Row="2" Grid.Column="0" Content="1" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button Grid.Row="2" Grid.Column="1" Content="2" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button Grid.Row="2" Grid.Column="2" Content="3" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button x:Name="minusButton" Grid.Row="2" Grid.Column="3" Content="-" FontSize="18" Click="OperatorButton_Click" Focusable="False"/>
+
+            <Button Grid.Row="3" Grid.Column="0" Content="0" FontSize="18" Click="NumberButton_Click" Focusable="False" />
+            <Button Grid.Row="3" Grid.Column="1" Content="." FontSize="18" Click="DecimalButton_Click" Focusable="False" />
+            <Button x:Name="helpButton" Grid.Row="3" Grid.Column="2" FontSize="18" Click="HelpButton_Click" Focusable="False">ℹ️</Button>
+
+
+
+            <Button x:Name="plusButton" Grid.Row="3" Grid.Column="3" Content="+" FontSize="18" Click="OperatorButton_Click" Focusable="False" />
+
+            <Button x:Name="ButtonClear" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="C" FontSize="18" Click="ClearButton_Click" Focusable="False" />
+            <Button x:Name="ButtonEquals" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Content="=" FontSize="18" Click="EqualsButton_Click" Focusable="False" />
+        </Grid>
+    </Grid>
+</Window>
+
